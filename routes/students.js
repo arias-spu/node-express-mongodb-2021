@@ -13,7 +13,7 @@ router.post('/', (request, response, next) =>{
        HandleError(response, 'Missing Information', 'Form Data Missing', 500);
    else{
        let student = new StudentSchema({
-           firstName: studentJSON.firstName,
+           firstName: studentJSON.firstName, // firstName: request.body.firstName
            lastName: studentJSON.lastName,
            gpa: studentJSON.gpa || 0,
            credits : studentJSON.credits || 0,
@@ -25,7 +25,7 @@ router.post('/', (request, response, next) =>{
            }else{
                response.send({"id": student.id});
            }
-       })
+       });
    }
 });
 // Check Post with: db.students.find()
