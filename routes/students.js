@@ -28,3 +28,6 @@ router.post('/', (request, response, next) =>{
        })
    }
 });
+// Check Post with: db.students.find()
+
+module.exports = router;
