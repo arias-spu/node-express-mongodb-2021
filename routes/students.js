@@ -30,4 +30,29 @@ router.post('/', (request, response, next) =>{
 });
 // Check Post with: db.students.find()
 
+router.get('/', (request, response, next)=>{
+    let name = request.query['name'];
+    if (name){
+        StudentSchema
+            .find({"firstName": name})
+            .exec( (error, students) =>{
+               if (error){
+                   response.send({"error": error});
+               }else{
+                   response.send(students);
+               }
+            });
+    }else{
+        StudentSchema
+            .find()
+            .exec( (error, students) =>{
+                if (error){
+                    response.send({"error": error});
+                }else{
+                    response.send(students);
+                }
+            });
+    }
+});
+
 module.exports = router;
