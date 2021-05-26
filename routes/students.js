@@ -55,4 +55,41 @@ router.get('/', (request, response, next)=>{
     }
 });
 
+router.get('/:id', (request, response, next) =>{
+    StudentSchema
+        .findById({"_id": request.params.id}, (error, result) => {
+            if (error){
+                response.status(500).send(error);
+            }else if (result){
+                response.send(result);
+            }else{
+                response.status(404).send({"id": request.params.id, "error": "Not Found"});
+            }
+        });
+});
+
+router.patch('/:id', (request, response, next) => {
+    StudentSchema
+        .findById(request.params.id, (error, result) => {
+            if (error) {
+                response.status(500).send(error);
+            }else if (result){
+                if (request.body._id){
+                    delete request.body._id;
+                }
+                for (let field in request.body){
+                    result[field] = request.body[field];
+                }
+                result.save((error, student)=>{
+                    if (error){
+                        response.status(500).send(error);
+                    }
+                    response.send(student);
+                });
+            }else{
+                response.status(404).send({"id": request.params.id, "error":  "Not Found"});
+            }
+        });
+});
+
 module.exports = router;
