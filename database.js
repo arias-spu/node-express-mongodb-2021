@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
+// Where does this come from?
 const mongoDB = process.env.MONGODB_URI || 'mongodb+srv://arias:SPU2020@mongo-db-0.xycwc.mongodb.net/people?retryWrites=true&w=majority';
 
+// What is this syntax about?
 mongoose
     .connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
